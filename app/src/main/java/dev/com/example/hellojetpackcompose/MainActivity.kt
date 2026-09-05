@@ -52,7 +52,7 @@ fun HelloComposeForm(){
              verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-            Text("Bienvenido a JetPack Compose")
+            Text("Bienvenido a Curso de Desarrollo móviles")
             OutlinedTextField(
                 value = name,
                 onValueChange = {name = it},
