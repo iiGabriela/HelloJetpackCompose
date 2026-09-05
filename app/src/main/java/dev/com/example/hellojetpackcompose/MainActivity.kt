@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-                 HelloComposeForm()
+                 ImcCalculator()
 
               }
             }
@@ -72,3 +72,61 @@ fun HelloComposeForm(){
         }
         }
     }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ImcCalculator(){
+    var peso by remember { mutableStateOf("") }
+    var altura by remember { mutableStateOf("") }
+    var resultado by remember { mutableStateOf("") }
+
+    Scaffold(
+        topBar = {TopAppBar(title = {Text("Calculadora de IMC")} )}
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .padding(16.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            OutlinedTextField(
+                value = peso,
+                onValueChange = {peso = it},
+                label = {Text("Peso (Kg)")}
+            )
+            OutlinedTextField(
+                value = altura,
+                onValueChange = {altura = it},
+                label = {Text("Altura (m) ")}
+            )
+
+            Button(
+                onClick = {
+                    val peso = peso.toDoubleOrNull()
+                    val altura = altura.toDoubleOrNull()
+                    if (peso != null && altura != null && altura > 0.0) {
+                        resultado = "Tu Imc es: %2f".format(peso / (altura * altura))
+                    } else {
+                        resultado = "Valores invalidos"
+                    }
+                }
+            ) {
+                Text("Calcula tu IMC")
+            }
+
+            if (resultado.isNotEmpty()){
+                Text(resultado)
+            }
+
+
+        }
+
+
+
+
+
+    }
+
+
+    
+}
